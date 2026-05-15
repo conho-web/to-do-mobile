@@ -1,16 +1,41 @@
-import { StyleSheet, Text, View } from "react-native";
+import Header from "@/layouts/Header";
+import TodoCreator from "@/layouts/TodoCreator";
+import TodoList from "@/layouts/TodoList";
+import { Todo } from "@/types/todo";
+import { useState } from "react";
+import { StatusBar, StyleSheet, View } from "react-native";
+
+const defaultTodos: Todo[] = [
+  {
+    id: 1,
+    title: 'Create app',
+    isCompleted: true
+  },
+  {
+    id: 2,
+    title: 'Create app fast',
+    isCompleted: false
+  }
+]
 
 export default function Index() {
+  const [todos, setTodos] = useState<Todo[]>(defaultTodos)
+
+  const completedTodos = todos.filter((item) => item.isCompleted)
+
   return (
     <View style={styles.container}>
-      <Text>Hello World</Text>
+      <Header totalTodos={todos.length} completedTodos={completedTodos.length} />
+      <TodoCreator onAddTodo={() => { }} />
+      <TodoList todos={todos} />
+      <StatusBar barStyle={'light-content'} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 80,
-    paddingHorizontal: 20,
-  },
+    backgroundColor: 'black',
+    height: '100%'
+  }
 })
