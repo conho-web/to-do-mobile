@@ -4,11 +4,17 @@ import { StyleSheet, TextInput, TextInputProps } from "react-native";
 
 type StyledTextInput = TextInputProps & {
   placeholder: string
+  isError?: boolean
 };
 
-export default function StyledTextInput({ placeholder, ...props }: StyledTextInput) {
+export default function StyledTextInput({ placeholder, isError, ...props }: StyledTextInput) {
   return (
-    <TextInput style={[styles.input, props.style]} placeholder={placeholder} placeholderTextColor={colors.primaryText80} {...props} />
+    <TextInput
+      style={[styles.input, props.style, isError ? styles.error : null]}
+      placeholder={placeholder}
+      placeholderTextColor={colors.primaryText80}
+      {...props}
+    />
   );
 }
 
@@ -18,6 +24,10 @@ const styles = StyleSheet.create({
     borderColor: colors.primaryText80,
     flex: 1,
     borderRadius: 4,
-    color: colors.primaryText
+    color: colors.primaryText,
+    paddingHorizontal: 16
+  },
+  error: {
+    borderColor: 'red'
   }
 })

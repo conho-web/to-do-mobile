@@ -21,12 +21,16 @@ const defaultTodos: Todo[] = [
 export default function Index() {
   const [todos, setTodos] = useState<Todo[]>(defaultTodos)
 
+  const addTodo = (title: Todo["title"]) => {
+    setTodos([...todos, { id: todos.length + 1, title, isCompleted: false }])
+  }
+
   const completedTodos = todos.filter((item) => item.isCompleted)
 
   return (
     <View style={styles.container}>
       <Header totalTodos={todos.length} completedTodos={completedTodos.length} />
-      <TodoCreator onAddTodo={() => { }} />
+      <TodoCreator onAddTodo={addTodo} />
       <TodoList todos={todos} />
       <StatusBar barStyle={'light-content'} />
     </View>
