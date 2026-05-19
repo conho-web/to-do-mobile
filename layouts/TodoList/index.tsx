@@ -3,16 +3,28 @@ import { Todo } from "@/types/todo"
 import { FlatList, StyleSheet, View } from "react-native"
 
 type TodoListProps = {
-  todos: Todo[]
+  todos: Todo[],
+  onCheckTodo: (id: Todo["id"]) => void,
+  onDeleteTodo: (id: Todo["id"]) => void,
+  onUpdateTodoTitle: (id: Todo["id"], title: Todo["title"]) => void,
 }
 
-export default function TodoList({ todos }: TodoListProps) {
+export default function TodoList({ todos, onCheckTodo, onDeleteTodo, onUpdateTodoTitle }: TodoListProps) {
   return (
     <View style={styles.container}>
       <FlatList
         data={todos}
         keyExtractor={(todo) => todo.id.toString()}
-        renderItem={({ item }) => <TodoItem title={item.title} isCompleted={item.isCompleted} />}
+        renderItem={({ item }) =>
+          <TodoItem
+            id={item.id}
+            title={item.title}
+            isCompleted={item.isCompleted}
+            onCheck={onCheckTodo}
+            onDelete={onDeleteTodo}
+            onUpdateTitle={onUpdateTodoTitle}
+          />
+        }
       />
     </View >
   )

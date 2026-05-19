@@ -25,13 +25,25 @@ export default function Index() {
     setTodos([...todos, { id: todos.length + 1, title, isCompleted: false }])
   }
 
+  const onCheckTodo = (id: Todo["id"]) => {
+    setTodos(todos.map((todo) => (todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo)));
+  }
+
+  const onDeleteTodo = () => {
+
+  }
+
+  const onUpdateTodoTitle = () => {
+
+  }
+
   const completedTodos = todos.filter((item) => item.isCompleted)
 
   return (
     <View style={styles.container}>
       <Header totalTodos={todos.length} completedTodos={completedTodos.length} />
       <TodoCreator onAddTodo={addTodo} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onCheckTodo={onCheckTodo} onDeleteTodo={onDeleteTodo} onUpdateTodoTitle={onUpdateTodoTitle} />
       <StatusBar barStyle={'light-content'} />
     </View>
   );
